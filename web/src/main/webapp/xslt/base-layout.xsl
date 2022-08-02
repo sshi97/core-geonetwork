@@ -28,7 +28,8 @@
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="2.0"
-                xmlns:util="java:org.fao.geonet.util.XslUtil"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:util="https://geonetwork-opensource.org/xsl-extension"
                 exclude-result-prefixes="#all">
 
   <xsl:output omit-xml-declaration="yes" method="html" doctype-system="html" indent="yes"
@@ -42,7 +43,7 @@
     <html ng-app="{$angularModule}" lang="{$lang2chars}" id="ng-app">
       <head>
         <title>
-            <xsl:value-of select="util:getNodeName('', $lang, true())"/>
+            <xsl:value-of select="util:getNodeName('', xs:string($lang), true())"/>
         </title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="initial-scale=1.0"/>

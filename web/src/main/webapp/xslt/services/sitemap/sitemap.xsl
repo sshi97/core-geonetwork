@@ -23,8 +23,8 @@
   -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-				xmlns:util="java:org.fao.geonet.util.XslUtil"
-				version="2.0"
+                xmlns:util="https://geonetwork-opensource.org/xsl-extension"
+				        version="2.0"
                 exclude-result-prefixes="#all">
 
   <xsl:include href="../../common/base-variables.xsl"/>
@@ -128,7 +128,7 @@
           <lastmod>
             <xsl:value-of select="substring($changedate,1,10)"/>
           </lastmod>
-          
+
           <!--
           <dct:format>
               <xsl:value-of select="$schemaid"/>

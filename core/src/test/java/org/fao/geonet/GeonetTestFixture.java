@@ -47,6 +47,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -56,6 +57,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.fao.geonet.utils.TransformerFactoryFactory.SAXON_CONFIGURATION_PATH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -88,8 +90,9 @@ public class GeonetTestFixture {
 
     public void setup(AbstractCoreIntegrationTest test) throws Exception {
         final Path webappDir = AbstractCoreIntegrationTest.getWebappDir(test.getClass());
-        TransformerFactoryFactory.init("de.fzi.dbs.xml.transform.CachingTransformerFactory");
-//        TransformerFactoryFactory.init("net.sf.saxon.TransformerFactoryImpl");
+        File saxonConfiguration = webappDir.resolve(SAXON_CONFIGURATION_PATH).toFile();
+        TransformerFactoryFactory.init(
+            "de.fzi.dbs.xml.transform.CachingTransformerFactory", saxonConfiguration);
 
         synchronized (GeonetTestFixture.class) {
             if (templateFs == null) {
