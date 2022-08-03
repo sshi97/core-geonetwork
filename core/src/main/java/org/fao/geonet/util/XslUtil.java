@@ -1340,7 +1340,7 @@ public final class XslUtil {
      * <xsl:stylesheet
      * xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
      * ...
-     * xmlns:java="java:org.fao.geonet.util.XslUtil" ...>
+     * xmlns:java="https://geonetwork-opensource.org/xsl-extension" ...>
      * <p>
      * <xsl:variable name="thesauriDir" select="java:getThesaurusDir()"/>
      *
@@ -1362,7 +1362,7 @@ public final class XslUtil {
      * <xsl:stylesheet
      * xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
      * ...
-     * xmlns:java="java:org.fao.geonet.util.XslUtil" ...>
+     * xmlns:java="https://geonetwork-opensource.org/xsl-extension" ...>
      * <p>
      * <xsl:variable name="thesauriDir" select="java:getIsoLanguageLabel('dut', 'eng')"/>
      *

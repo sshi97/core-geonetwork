@@ -21,32 +21,8 @@
   ~ Contact: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
   ~ Rome - Italy. email: geonetwork@osgeo.org
   -->
-
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                version="3.0"
+<xsl:stylesheet version="2.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 exclude-result-prefixes="#all">
-
-  <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-
-  <xsl:include href="../../common/base-variables.xsl"/>
-  <xsl:include href="../../common/profiles-loader-subtemplate-transformation.xsl"/>
-  <!-- Default template to use (ISO19139 keyword by default). -->
-
-  <xsl:variable name="serviceUrl" select="$fullURLForService"/>
-
-  <xsl:template match="/">
-    <xsl:variable name="subtemplate" select="/root/*[name() != 'gui' and name() != 'request']"/>
-
-    <xsl:choose>
-      <xsl:when test="/root/request/transformation != ''">
-        <xsl:for-each select="$subtemplate">
-          <xsl:call-template name="{/root/request/transformation}"/>
-        </xsl:for-each>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:copy-of select="$subtemplate"/>
-      </xsl:otherwise>
-    </xsl:choose>
-
-  </xsl:template>
+  <xsl:import href="../../../iso19115-3.2018/convert/ISO19139/fromISO19139.xsl"/>
 </xsl:stylesheet>

@@ -27,7 +27,7 @@
                 xmlns:gmx="http://www.isotc211.org/2005/gmx"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:gco="http://www.isotc211.org/2005/gco"
-                xmlns:util="java:org.fao.geonet.util.XslUtil"
+                xmlns:util="https://geonetwork-opensource.org/xsl-extension"
                 xmlns:date-util="java:org.fao.geonet.utils.DateUtil"
                 xmlns:gn-fn-index="http://geonetwork-opensource.org/xsl/functions/index"
                 version="2.0">

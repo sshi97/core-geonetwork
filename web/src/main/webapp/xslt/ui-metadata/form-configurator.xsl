@@ -148,10 +148,10 @@
     <xsl:param name="base" as="node()"/>
 
     <xsl:variable name="nodes">
-      <saxon:call-template name="{concat('evaluate-', $schema)}">
+      <xsl:call-template name="{concat('evaluate-', $schema)}">
         <xsl:with-param name="base" select="$base"/>
         <xsl:with-param name="in" select="concat('/../', @xpath)"/>
-      </saxon:call-template>
+      </xsl:call-template>
     </xsl:variable>
 
     <xsl:variable name="mode" select="@mode"/>
@@ -161,10 +161,10 @@
                     select="gn-fn-metadata:getOriginalNode($base, .)"/>
 
       <xsl:for-each select="$originalNode">
-        <saxon:call-template name="{$mode}">
+        <xsl:call-template name="{$mode}">
           <xsl:with-param name="base" select="$base"/>
           <xsl:with-param name="config" select="$config"/>
-        </saxon:call-template>
+        </xsl:call-template>
       </xsl:for-each>
     </xsl:for-each>
   </xsl:template>
@@ -197,21 +197,21 @@
 
       That's why each schema should define its evaluate-<schemaid> template. -->
       <xsl:variable name="nodes">
-        <saxon:call-template name="{concat('evaluate-', $schema)}">
+        <xsl:call-template name="{concat('evaluate-', $schema)}">
           <xsl:with-param name="base" select="$base"/>
           <xsl:with-param name="in" select="concat('/../', @xpath)"/>
-        </saxon:call-template>
+        </xsl:call-template>
       </xsl:variable>
 
       <!-- Match any gn:child nodes from the metadocument which
       correspond to non existing node but available in the schema. -->
       <xsl:variable name="nonExistingChildParent">
         <xsl:if test="@or and @in">
-          <saxon:call-template name="{concat('evaluate-', $schema)}">
+          <xsl:call-template name="{concat('evaluate-', $schema)}">
             <xsl:with-param name="base" select="$base"/>
             <xsl:with-param name="in"
                             select="concat('/../', @in, '[gn:child/@name=''', @or, ''']')"/>
-          </saxon:call-template>
+          </xsl:call-template>
         </xsl:if>
       </xsl:variable>
 
@@ -272,7 +272,7 @@
                   </xsl:call-template>
                 </xsl:variable>
 
-                <saxon:call-template name="{concat('dispatch-', $schema)}">
+                <xsl:call-template name="{concat('dispatch-', $schema)}">
                   <xsl:with-param name="base" select="$originalNode"/>
                   <xsl:with-param name="overrideLabel"
                                   select="if ($configName != '' and $overrideLabel != '')
@@ -280,7 +280,7 @@
                                         else ''"/>
                   <xsl:with-param name="refToDelete" select="$refToDelete/gn:element"/>
                   <xsl:with-param name="config" select="$config"/>
-                </saxon:call-template>
+                </xsl:call-template>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:for-each select="$nodes/*">
@@ -296,7 +296,7 @@
                     </xsl:call-template>
                   </xsl:variable>
 
-                  <saxon:call-template name="{concat('dispatch-', $schema)}">
+                  <xsl:call-template name="{concat('dispatch-', $schema)}">
                     <xsl:with-param name="base" select="$originalNode"/>
                     <xsl:with-param name="overrideLabel"
                                     select="if ($configName != '' and $overrideLabel != '')
@@ -304,7 +304,7 @@
                                         else ''"/>
                     <xsl:with-param name="refToDelete" select="$refToDelete/gn:element"/>
                     <xsl:with-param name="config" select="$config"/>
-                  </saxon:call-template>
+                  </xsl:call-template>
                 </xsl:for-each>
               </xsl:otherwise>
             </xsl:choose>
@@ -330,14 +330,14 @@
               <xsl:variable name="labelConfig"
                             select="gn-fn-metadata:getLabel($schema, $name, $labels)"/>
 
-              <saxon:call-template name="{concat('dispatch-', $schema)}">
+              <xsl:call-template name="{concat('dispatch-', $schema)}">
                 <xsl:with-param name="base" select="."/>
                 <xsl:with-param name="overrideLabel"
                                 select="if ($configName != '')
                                         then $strings/*[name() = $configName]
                                         else $labelConfig/label"/>
                 <xsl:with-param name="config" select="$config"/>
-              </saxon:call-template>
+              </xsl:call-template>
             </xsl:for-each>
           </xsl:if>
 
@@ -386,10 +386,10 @@
             <xsl:variable name="readonly">
               <xsl:choose>
                 <xsl:when test="$template/values/@readonlyIf">
-                  <saxon:call-template name="{concat('evaluate-', $schema, '-boolean')}">
+                  <xsl:call-template name="{concat('evaluate-', $schema, '-boolean')}">
                     <xsl:with-param name="base" select="$currentNode"/>
                     <xsl:with-param name="in" select="concat('/', $template/values/@readonlyIf)"/>
-                  </saxon:call-template>
+                  </xsl:call-template>
                 </xsl:when>
               </xsl:choose>
             </xsl:variable>
@@ -502,11 +502,11 @@
       <xsl:when test="$delXpath != ''">
         <!-- Search in the context of the metadata (current context is a node with no parent due to the saxon eval selection. -->
         <xsl:variable name="ancestor">
-          <saxon:call-template name="{concat('evaluate-', $schema)}">
+          <xsl:call-template name="{concat('evaluate-', $schema)}">
             <xsl:with-param name="base" select="$node"/>
             <xsl:with-param name="in"
                             select="concat('/descendant-or-self::node()[gn:element/@ref = ''', $node/gn:element/@ref, ''']/', $delXpath)"/>
-          </saxon:call-template>
+          </xsl:call-template>
         </xsl:variable>
         <xsl:choose>
           <xsl:when test="exists($ancestor/*/gn:element)">
@@ -535,10 +535,10 @@
         </xsl:if>
 
         <xsl:variable name="matchingNodeValue">
-          <saxon:call-template name="{concat('evaluate-', $schema)}">
+          <xsl:call-template name="{concat('evaluate-', $schema)}">
             <xsl:with-param name="base" select="$currentNode"/>
             <xsl:with-param name="in" select="concat('/', @xpath)"/>
-          </saxon:call-template>
+          </xsl:call-template>
         </xsl:variable>
         <value>
           <xsl:value-of select="normalize-space($matchingNodeValue)"/>
@@ -559,10 +559,10 @@
         <xsl:for-each select="directiveAttributes/attribute::*">
           <xsl:if test="starts-with(., 'eval#')">
             <directiveAttributes name="{name()}">
-              <saxon:call-template name="{concat('evaluate-', $schema)}">
+              <xsl:call-template name="{concat('evaluate-', $schema)}">
                 <xsl:with-param name="base" select="$currentNode"/>
                 <xsl:with-param name="in" select="concat('/', substring-after(., 'eval#'))"/>
-              </saxon:call-template>
+              </xsl:call-template>
             </directiveAttributes>
           </xsl:if>
         </xsl:for-each>
@@ -607,7 +607,7 @@
 
 
   <xsl:template mode="form-builder" match="section[@template]">
-    <saxon:call-template name="{@template}"/>
+    <xsl:call-template name="{@template}"/>
   </xsl:template>
 
   <xsl:template mode="form-builder" match="action[@type='add']">
@@ -618,21 +618,21 @@
       correspond to non existing node but available in the schema. -->
     <xsl:variable name="nonExistingChildParent">
       <xsl:if test="@or and @in">
-        <saxon:call-template name="{concat('evaluate-', $schema)}">
+        <xsl:call-template name="{concat('evaluate-', $schema)}">
           <xsl:with-param name="base" select="$base"/>
           <xsl:with-param name="in" select="concat('/../', @in, '[gn:child/@name=''', @or, ''']')"/>
-        </saxon:call-template>
+        </xsl:call-template>
       </xsl:if>
     </xsl:variable>
 
     <xsl:variable name="elementOfSameKind">
       <xsl:if test="@or and @in">
-        <saxon:call-template name="{concat('evaluate-', $schema)}">
+        <xsl:call-template name="{concat('evaluate-', $schema)}">
           <xsl:with-param name="base" select="$base"/>
           <xsl:with-param name="in"
                           select="concat('/../', @in,
                             '/*[local-name() = ''', @or, ''']')"/>
-        </saxon:call-template>
+        </xsl:call-template>
       </xsl:if>
     </xsl:variable>
 
