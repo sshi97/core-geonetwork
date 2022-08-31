@@ -245,6 +245,8 @@
 
     <xsl:variable name="appConfig"
                   select="util:getUiConfiguration(/root/request/ui)"/>
+    <xsl:variable name="urlAppConfig"
+                  select="/root/request/uiconfig"/>
 
     <xsl:if test="$angularApp = 'gn_search'">
       <script src="{$uiResourcesPath}lib/d3_timeseries/d3.min.js?v={$buildNumber}"></script>
@@ -310,7 +312,7 @@
       cfgModule.config(['gnViewerSettings', 'gnSearchSettings', 'gnGlobalSettings',
       function(gnViewerSettings, gnSearchSettings, gnGlobalSettings) {
       gnGlobalSettings.init(
-      <xsl:value-of select="if ($appConfig != '') then $appConfig else '{}'"/>,
+      <xsl:value-of select="if ($urlAppConfig != '') then $urlAppConfig else if ($appConfig != '') then $appConfig else '{}'"/>,
       null, gnViewerSettings, gnSearchSettings);
       }]);
     </script>
