@@ -193,6 +193,7 @@
             queryTitle: "resourceTitleObject.\\*:(${any})",
             queryTitleExactMatch: 'resourceTitleObject.\\*:"${any}"',
             searchOptions: {
+              fullText: true,
               titleOnly: true,
               exactMatch: true,
               language: true
@@ -294,6 +295,7 @@
                           "resourceTitleObject.${searchLang}^6",
                           "resourceAbstractObject.${searchLang}^.5",
                           "tag",
+                          "uuid",
                           "resourceIdentifier"
                           // "anytext",
                           // "anytext._2gram",
@@ -694,7 +696,12 @@
                 // 'url' : '/formatters/xml?attachment=false',
                 url: "/formatters/xml",
                 class: "fa-file-code-o"
-              }
+              } /*,
+              {
+                label: "exportDCAT",
+                url: "/geonetwork/api/collections/main/items/${uuid}?f=dcat",
+                class: "fa-file-code-o"
+              }*/
             ],
             grid: {
               related: ["parent", "children", "services", "datasets"]
